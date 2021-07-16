@@ -5,6 +5,7 @@ const sequalize = require('./db');
 const models = require('./models/models');
 const cors = require('cors');
 const router = require('./routes/index');
+const errorHandler = require('./middleware/ErrorHandlingMiddleware');
 
 const app = express();
 const PORT = process.env.PORT;
@@ -12,6 +13,9 @@ const PORT = process.env.PORT;
 app.use(cors());
 app.use(express.json());
 app.use('/api', router);
+
+// Last middleware
+app.use(errorHandler);
 
 const start = async () => {
   try {

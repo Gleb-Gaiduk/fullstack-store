@@ -25,7 +25,38 @@ class deviceController {
     }
   }
 
-  async getAll(req, res) {}
+  async getAll(req, res) {
+    const { brandId, typeId } = req.query;
+    let devices;
+    if (!brandId && !typeId) {
+      // Return all devices
+      try {
+        devices = await Device.findAll();
+      } catch (error) {}
+    }
+
+    if (brandId && !typeId) {
+      // Return filtered by brand
+      try {
+        devices = await Device.findAll({ where: { brandId } });
+      } catch (error) {}
+    }
+
+    if (!brandId && typeId) {
+      // Return filtered by type
+      try {
+        devices = await Device.findAll({ where: { typeId } });
+      } catch (error) {}
+    }
+
+    if (brandId && typeId) {
+      try {
+        devices = await Device.findAll({ where: { typeId, brandId } });
+      } catch (error) {}
+    }
+
+    return res.json(devices);
+  }
 
   async getOne(req, res) {}
 }

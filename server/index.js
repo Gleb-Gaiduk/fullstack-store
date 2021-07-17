@@ -4,14 +4,17 @@ const express = require('express');
 const sequalize = require('./db');
 const models = require('./models/models');
 const cors = require('cors');
+const fileUpload = require('express-fileupload');
 const router = require('./routes/index');
 const errorHandler = require('./middleware/ErrorHandlingMiddleware');
 
 const app = express();
 const PORT = process.env.PORT;
 
+// Middlewares
 app.use(cors());
 app.use(express.json());
+app.use(fileUpload({}));
 app.use('/api', router);
 
 // Last middleware

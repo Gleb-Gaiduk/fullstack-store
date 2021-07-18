@@ -82,7 +82,17 @@ class deviceController {
     return res.json(devices);
   }
 
-  async getOne(req, res) {}
+  async getOne(req, res) {
+    const { id } = req.params;
+    try {
+      const device = await Device.findOne({
+        where: { id },
+        include: [{ model: DeviceInfo, as: 'info' }],
+      });
+
+      return res.json(device);
+    } catch (error) {}
+  }
 }
 
 module.exports = new deviceController();

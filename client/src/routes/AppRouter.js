@@ -1,17 +1,18 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
+import { Context } from '..';
 import { authRoutes, publicRoutes } from './routes';
 import { SHOP_ROUTE } from './routesConsts';
 
 const AppRouter = () => {
-  const isTempAuth = false;
+  const { user } = useContext(Context);
+  console.log(user);
   return (
     <Switch>
-      {isTempAuth &&
+      {user.isAuth &&
         authRoutes.map(({ path, Component }) => (
           <Route exact key={path} path={path} component={Component} />
         ))}
-
       {publicRoutes.map(({ path, Component }) => (
         <Route exact key={path} path={path} component={Component} />
       ))}

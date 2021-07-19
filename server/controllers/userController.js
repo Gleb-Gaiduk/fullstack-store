@@ -48,7 +48,12 @@ class UserController {
     return res.json({ token });
   }
 
-  async check(req, res, next) {}
+  async check(req, res, next) {
+    // Generate new token: if user uses same account token will be recreated
+    // Object with user data has been added to req object in the authMiddleware
+    const token = generateJwt(req.user.id, req.user.email, req.user.role);
+    res.json({ token });
+  }
 }
 
 module.exports = new UserController();

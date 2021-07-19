@@ -1,3 +1,4 @@
+import { observer } from 'mobx-react-lite';
 import React, { useContext } from 'react';
 import { Button } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
@@ -7,7 +8,7 @@ import { NavLink } from 'react-router-dom';
 import { Context } from '../index';
 import { SHOP_ROUTE } from '../routes/routesConsts';
 
-const NavBar = () => {
+const NavBar = observer(() => {
   const { user } = useContext(Context);
 
   return (
@@ -28,12 +29,17 @@ const NavBar = () => {
           </Nav>
         ) : (
           <Nav className='ml-auto' style={{ color: 'white' }}>
-            <Button variant={'outline-light'}>Authorization</Button>
+            <Button
+              variant={'outline-light'}
+              onClick={() => user.setIsAuth(true)}
+            >
+              Authorization
+            </Button>
           </Nav>
         )}
       </Container>
     </Navbar>
   );
-};
+});
 
 export default NavBar;

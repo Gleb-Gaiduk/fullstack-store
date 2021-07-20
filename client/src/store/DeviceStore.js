@@ -5,6 +5,8 @@ export default class DeviceStore {
     this._types = [
       { id: 1, name: 'Fridges' },
       { id: 2, name: 'Smartphones' },
+      { id: 3, name: 'Headphones' },
+      { id: 4, name: 'Tablets' },
     ];
 
     this._brands = [
@@ -18,7 +20,7 @@ export default class DeviceStore {
         name: 'Iphone 12pro',
         price: 2500,
         rating: 5,
-        img: 'https://www.mediaexpert.pl/smartfony-i-zegarki/smartfony/smartfon-apple-iphone-12-pro-5g-pacific-blue-128gb?gclid=Cj0KCQjwxdSHBhCdARIsAG6zhlUkzw5TdYEeD7-dUnXXUH1LQOwj-ujncOl2GzR-vt9SrMjElmeiZ0UaAkQ6EALw_wcB',
+        img: 'https://prod-api.mediaexpert.pl/api/images/gallery_500_500/thumbnails/images/26/2607261/Smartfon-APPLE-iPhone-12-Pro-pacyficzny-front-tyl.jpg',
       },
 
       {
@@ -26,9 +28,12 @@ export default class DeviceStore {
         name: 'Iphone 10',
         price: 2000,
         rating: 5,
-        img: 'https://www.mediaexpert.pl/smartfony-i-zegarki/smartfony/smartfon-apple-iphone-12-pro-5g-pacific-blue-128gb?gclid=Cj0KCQjwxdSHBhCdARIsAG6zhlUkzw5TdYEeD7-dUnXXUH1LQOwj-ujncOl2GzR-vt9SrMjElmeiZ0UaAkQ6EALw_wcB',
+        img: 'https://prod-api.mediaexpert.pl/api/images/gallery_500_500/thumbnails/images/26/2607261/Smartfon-APPLE-iPhone-12-Pro-pacyficzny-front-tyl.jpg',
       },
     ];
+
+    this._selectedType = {};
+    this._selectedBrand = {};
 
     makeAutoObservable(this);
   }
@@ -45,6 +50,14 @@ export default class DeviceStore {
     this._devices = devices;
   }
 
+  setSelectedType(type) {
+    this._selectedType = type;
+  }
+
+  setSelectedBrand(brand) {
+    this._selectedBrand = brand;
+  }
+
   // Functions above should be invoked only if its variable got changed
   get types() {
     return this._types;
@@ -56,5 +69,13 @@ export default class DeviceStore {
 
   get devices() {
     return this._devices;
+  }
+
+  get selectedType() {
+    return this._selectedType;
+  }
+
+  get selectedBrand() {
+    return this._selectedBrand;
   }
 }

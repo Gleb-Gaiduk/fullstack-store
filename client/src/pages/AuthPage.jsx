@@ -1,19 +1,44 @@
-import React, { useState } from 'react';
+import { observer } from 'mobx-react-lite';
+import React, { useContext, useState } from 'react';
 import { Container, Form } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
 import { NavLink, useHistory, useLocation } from 'react-router-dom';
-import { LOGIN_ROUTE, REGISTRATION_ROUTE } from '../routes/routesConsts';
+import { Context } from '..';
+import { login, registration } from '../http/userAPI';
+import {
+  LOGIN_ROUTE,
+  REGISTRATION_ROUTE,
+  SHOP_ROUTE,
+} from '../routes/routesConsts';
 
-const Auth = () => {
+const Auth = observer(() => {
+  const { user: userStore } = useContext(Context);
   const location = useLocation();
   const history = useHistory();
-
   const isLogin = location.pathname === LOGIN_ROUTE;
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const authorize = async () => {
+    try {
+      let userData = null;
+      if (isLogin) {
+        userData = await login(email, password);
+        console.log(userData);
+      } else {
+        userData = await registration(email, password);
+        console.log('signIn', userData);
+      }
+      userStore.setUser(userData);
+      userStore.setIsAuth(true);
+      history.push(SHOP_ROUTE);
+    } catch (error) {
+      alert(error.response.data.message);
+    }
+  };
 
   return (
     <Container
@@ -52,6 +77,7 @@ const Auth = () => {
               </div>
             )}
             <Button
+              onClick={authorize}
               style={{ width: '140px', marginRight: '12px' }}
               variant={'outline-success'}
             >
@@ -62,6 +88,6 @@ const Auth = () => {
       </Card>
     </Container>
   );
-};
+});
 
 export default Auth;

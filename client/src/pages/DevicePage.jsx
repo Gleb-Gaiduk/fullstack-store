@@ -1,22 +1,24 @@
+import React, { useEffect, useState } from 'react';
 import { Button, Card, Col, Container, Image, Row } from 'react-bootstrap';
+import { useParams } from 'react-router-dom';
+import { fetchOneDevice } from '../http/deviceAPI';
 
 const Device = () => {
-  const device = {
-    name: 'Test name',
-    rating: 5,
-    price: 2500,
-  };
-
-  const description = [
-    { title: 'Test title', description: 'Test Description' },
-    { title: 'Test title', description: 'Test Description' },
-  ];
+  const [device, setDevice] = useState({ info: [] });
+  const { id } = useParams();
+  useEffect(() => {
+    fetchOneDevice(id).then(data => setDevice(data));
+  }, []);
 
   return (
     <Container className='mt-3'>
       <Row>
         <Col md={4}>
-          <Image width={300} height={300} src={''} />
+          <Image
+            width={300}
+            height={300}
+            src={process.env.REACT_APP_API_URL + device.img}
+          />
         </Col>
         <Col md={4}>
           <Row>
@@ -43,7 +45,7 @@ const Device = () => {
       </Row>
       <Row className='d-flex flex-column m-3'>
         <h1>Device parameters</h1>
-        {description.map((info, index) => (
+        {device.info.map((info, index) => (
           <Row
             key={info.id}
             style={{

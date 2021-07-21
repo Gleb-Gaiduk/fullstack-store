@@ -2,35 +2,11 @@ import { makeAutoObservable } from 'mobx';
 
 export default class DeviceStore {
   constructor() {
-    this._types = [
-      { id: 1, name: 'Fridges' },
-      { id: 2, name: 'Smartphones' },
-      { id: 3, name: 'Headphones' },
-      { id: 4, name: 'Tablets' },
-    ];
+    this._types = [];
 
-    this._brands = [
-      { id: 1, name: 'Samsung' },
-      { id: 2, name: 'Apple ' },
-    ];
+    this._brands = [];
 
-    this._devices = [
-      {
-        id: 1,
-        name: 'Iphone 12pro',
-        price: 2500,
-        rating: 5,
-        img: 'https://prod-api.mediaexpert.pl/api/images/gallery_500_500/thumbnails/images/26/2607261/Smartfon-APPLE-iPhone-12-Pro-pacyficzny-front-tyl.jpg',
-      },
-
-      {
-        id: 2,
-        name: 'Iphone 10',
-        price: 2000,
-        rating: 5,
-        img: 'https://prod-api.mediaexpert.pl/api/images/gallery_500_500/thumbnails/images/26/2607261/Smartfon-APPLE-iPhone-12-Pro-pacyficzny-front-tyl.jpg',
-      },
-    ];
+    this._devices = [];
 
     this._selectedType = {};
     this._selectedBrand = {};

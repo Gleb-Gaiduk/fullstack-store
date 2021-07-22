@@ -25,8 +25,16 @@ export const createDevice = async device => {
   return data;
 };
 
-export const fetchDevices = async () => {
-  const { data } = await $authHost.get('api/device');
+export const fetchDevices = async (typeId, brandId, page, limit = 5) => {
+  // Params will be added to the query string automatically
+  const { data } = await $authHost.get('api/device', {
+    params: {
+      typeId,
+      brandId,
+      page,
+      limit,
+    },
+  });
   return data;
 };
 

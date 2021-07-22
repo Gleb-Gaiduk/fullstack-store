@@ -19,14 +19,14 @@ const Admin = () => {
         Add type
       </Button>
       <Button
-        onClick={() => setTypeVisible(true)}
+        onClick={() => setBrandVisible(true)}
         variant={'outline-dark'}
         className='mt-2 p-2'
       >
         Add brand
       </Button>
       <Button
-        onClick={() => setTypeVisible(true)}
+        onClick={() => setDeviceVisible(true)}
         variant={'outline-dark'}
         className='mt-2 p-2'
       >

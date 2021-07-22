@@ -3,13 +3,17 @@ import { makeAutoObservable } from 'mobx';
 export default class DeviceStore {
   constructor() {
     this._types = [];
-
     this._brands = [];
-
     this._devices = [];
-
     this._selectedType = {};
     this._selectedBrand = {};
+
+    // Current page by default
+    this._page = 1;
+    // Total number of items accessible by the query
+    this._totalCount = 0;
+    // Number of items per page
+    this._limit = 3;
 
     makeAutoObservable(this);
   }
@@ -27,11 +31,25 @@ export default class DeviceStore {
   }
 
   setSelectedType(type) {
+    this.setPage(1);
     this._selectedType = type;
   }
 
   setSelectedBrand(brand) {
+    this.setPage(1);
     this._selectedBrand = brand;
+  }
+
+  setPage(page) {
+    this._page = page;
+  }
+
+  setTotalCount(totalCount) {
+    this._totalCount = totalCount;
+  }
+
+  setLimit(limit) {
+    this._limit = limit;
   }
 
   // Functions above should be invoked only if its variable got changed
@@ -53,5 +71,17 @@ export default class DeviceStore {
 
   get selectedBrand() {
     return this._selectedBrand;
+  }
+
+  get page() {
+    return this._page;
+  }
+
+  get totalCount() {
+    return this._totalCount;
+  }
+
+  get limit() {
+    return this._limit;
   }
 }
